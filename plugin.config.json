@@ -1,0 +1,5 @@
+{
+	"extraScripts": [
+		"codemirror/zettlr/index.ts"
+	]
+}
