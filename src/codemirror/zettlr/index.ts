@@ -3,6 +3,7 @@ import CodeMirror from "codemirror";
 import {markdownRenderTasks} from "./render-tasks";
 import {foldCodeHelper} from "./foldcode-helper";
 import {markdownRenderTables} from "./render-tables";
+import {markdownRenderMath} from "./render-math";
 
 module.exports = {
     default: function(_context) {
@@ -51,6 +52,9 @@ module.exports = {
                 return [
                     {
                         name: 'zettlr.css'
+                    },
+                    {
+                        name: 'katex.min.css'
                     }
                 ];
             }
@@ -71,8 +75,7 @@ function renderElements (cm: CodeMirror.Editor): void {
     // if (render.tasks === true) cm.execCommand('markdownRenderTasks')
     // if (render.headingTags === true) cm.execCommand('markdownRenderHTags')
     // if (render.emphasis === true) cm.execCommand('markdownRenderEmphasis')
-    console.log('=================> In renderElements');
-    // markdownRenderMath(cm);
-    // markdownRenderTasks(cm);
+    markdownRenderMath(cm);
+    markdownRenderTasks(cm);
     markdownRenderTables(cm);
 }

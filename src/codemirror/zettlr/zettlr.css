@@ -37,11 +37,11 @@
     padding: 2px 0px 2px 0px;
     cursor: pointer;
     vertical-align: baseline;
-    background-color: lightgray;
+    background-color: #f4f5f5;
 }
 
 .CodeMirror-foldmarker:hover {
-    background-color: darkgrey;
+    background-color: #E6E6E6;
 }
 
 .table-helper {
@@ -55,8 +55,4 @@
 table.table-helper td {
     padding: 6px;
     border: 1px solid #E6E6E6;
-}
-
-tr p {
-    margin: 2px;
 }
