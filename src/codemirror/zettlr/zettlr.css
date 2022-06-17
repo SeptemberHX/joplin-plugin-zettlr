@@ -56,3 +56,10 @@ table.table-helper td {
     padding: 6px;
     border: 1px solid #E6E6E6;
 }
+
+input[type="checkbox"] {
+    vertical-align: middle;
+    margin: 4px -4px 4px 4px;
+    width: 2em;
+    height: 1.1em;
+}
