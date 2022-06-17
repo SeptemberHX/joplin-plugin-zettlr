@@ -73,6 +73,6 @@ function renderElements (cm: CodeMirror.Editor): void {
     // if (render.emphasis === true) cm.execCommand('markdownRenderEmphasis')
     console.log('=================> In renderElements');
     // markdownRenderMath(cm);
-    markdownRenderTasks(cm);
+    // markdownRenderTasks(cm);
     markdownRenderTables(cm);
 }

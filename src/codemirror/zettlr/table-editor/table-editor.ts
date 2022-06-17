@@ -278,11 +278,13 @@ export default class TableEditor {
     const maxX = minX + rect.width + this._edgeButtonSize // Not half to account for the lower minY
     const maxY = minY + rect.height + this._edgeButtonSize // Not half to account for the lower minY
 
+    const joplinMargin = 20;
+
     if (
-      evt.clientX >= minX &&
-      evt.clientX <= maxX &&
-      evt.clientY >= minY &&
-      evt.clientY <= maxY
+      evt.clientX >= minX + joplinMargin &&
+      evt.clientX <= maxX - joplinMargin &&
+      evt.clientY >= minY + joplinMargin &&
+      evt.clientY <= maxY - joplinMargin
     ) {
       this._showEdgeButtons()
       // Always recalculate the positions to make sure

@@ -1,11 +1,16 @@
-# Joplin Plugin
+# Joplin Plugin Zettlr
 
-This is a template to create a new Joplin plugin.
+[Zettlr](www.zettlr.com) is the number one Markdown Editor for researchers in the arts and humanities. Open Source. Fast. Convenient.
 
-The main two files you will want to look at are:
+> This plugin tries to make all the editor plugins in [Zettlr's markdown-editor plugins](https://github.com/Zettlr/Zettlr/tree/develop/source/common/modules/markdown-editor/plugins) work in Joplin
 
-- `/src/index.ts`, which contains the entry point for the plugin source code.
-- `/src/manifest.json`, which is the plugin manifest. It contains information such as the plugin a name, version, etc.
+## What works for now [work, but not good enough]:
+
+* Math Renderer
+* Table Renderer
+* Tasks Renderer
+
+![example](./screenshots/example.png)
 
 ## Building the plugin
 
