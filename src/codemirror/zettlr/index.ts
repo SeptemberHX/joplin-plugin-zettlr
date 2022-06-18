@@ -4,6 +4,7 @@ import {markdownRenderTasks} from "./render-tasks";
 import {foldCodeHelper} from "./foldcode-helper";
 import {markdownRenderTables} from "./render-tables";
 import {markdownRenderMath} from "./render-math";
+import {CMBlockMarkerHelper} from "../../utils/CMBlockMarkerHelper";
 
 module.exports = {
     default: function(_context) {
@@ -27,6 +28,13 @@ module.exports = {
                     cm.on('cursorActivity', callback)
                     cm.on('viewportChange', callback) // renderElements)
                     cm.on('optionChange', callback)
+
+                    new CMBlockMarkerHelper(cm, null, /\`\`\`test/, /\`\`\`/, (beginMatch, endMatch, content) => {
+                        let testDiv = document.createElement('div');
+                        testDiv.innerHTML = '=== Folded Test Code Block ===';
+                        testDiv.style.cssText = 'height: 100px;';
+                        return testDiv;
+                    }, 'test-marker', false);
                 });
 
                 foldCodeHelper(CodeMirror);

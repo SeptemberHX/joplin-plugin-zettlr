@@ -29,8 +29,9 @@
     "yargs": "^16.2.0"
   },
   "dependencies": {
+    "codemirror": "^5.65.5",
     "katex": "^0.16.0",
     "showdown": "^2.1.0",
-    "codemirror": "^5.65.5"
+    "ts-debounce": "^4.0.0"
   }
 }
