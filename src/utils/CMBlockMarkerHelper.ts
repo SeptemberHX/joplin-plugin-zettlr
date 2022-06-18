@@ -113,9 +113,8 @@ export class CMBlockMarkerHelper {
                 continue;
             }
 
-            // a little trick to avoid the background of the code block
-            const from = {line: blockRange.from - 1, ch: this.editor.getLine(blockRange.from).length};
-            const to = {line: blockRange.to + 1, ch: 0};
+            const from = {line: blockRange.from, ch: 0};
+            const to = {line: blockRange.to, ch: this.editor.getLine(blockRange.to).length + 1};
 
             const cursor = this.editor.getCursor();
             const doc = this.editor.getDoc();
@@ -147,12 +146,12 @@ export class CMBlockMarkerHelper {
                     };
                 } else {
                     const editButton = document.createElement('button');
-                    editButton.textContent = '</>';
+                    editButton.textContent = '/';
                     editButton.hidden = true;
-                    editButton.style.cssText = 'position: absolute; top: 28px; right: 8px; width: 20px; height: 20px;';
+                    editButton.style.cssText = 'position: absolute; top: 8px; right: 8px; width: 20px; height: 20px;';
                     editButton.onclick = () => {
                         textMarker.clear();
-                        doc.setCursor({line: from.line + 2, ch: 0});
+                        doc.setCursor({line: from.line + 1, ch: 0});
                     }
                     wrapper.appendChild(editButton);
                     wrapper.style.cssText = 'border: 2px solid transparent; padding: 2px; width: 100%; border-radius: 4px;';

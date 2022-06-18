@@ -29,10 +29,9 @@ module.exports = {
                     cm.on('viewportChange', callback) // renderElements)
                     cm.on('optionChange', callback)
 
-                    new CMBlockMarkerHelper(cm, null, /\`\`\`test/, /\`\`\`/, (beginMatch, endMatch, content) => {
+                    new CMBlockMarkerHelper(cm, null, /:::test/, /:::/, (beginMatch, endMatch, content) => {
                         let testDiv = document.createElement('div');
-                        testDiv.innerHTML = '=== Folded Test Code Block ===';
-                        testDiv.style.cssText = 'height: 100px;';
+                        testDiv.textContent = '=== Folded Test Code Block ===\n=== Folded Test Code Block ===';
                         return testDiv;
                     }, 'test-marker', false);
                 });
