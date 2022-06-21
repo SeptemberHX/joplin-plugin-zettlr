@@ -1,41 +1,36 @@
-// import './render-math'
 import CodeMirror from "codemirror";
 import {markdownRenderTasks} from "./render-tasks";
 import {foldCodeHelper} from "./foldcode-helper";
 import {markdownRenderTables} from "./render-tables";
-import {markdownRenderMath} from "./render-math";
 import {CMBlockMarkerHelper} from "../../utils/CMBlockMarkerHelper";
 import katex from 'katex'
+import {debounce} from "ts-debounce";
+import CMInlineMarkerHelper from "../../utils/CMInlineMarkerHelper";
 
 module.exports = {
     default: function(_context) {
         return {
             plugin: function (CodeMirror) {
                 CodeMirror.defineOption("zettlrPlugins", [], async function(cm, val, old) {
-                    // While taskHandle is undefined, there's no task scheduled. Else, there is.
-                    let taskHandle: number|undefined
+                    const debounceRender = debounce(() => {renderElements(cm)}, 400);
 
-                    const callback = function (cm: CodeMirror.Editor): void {
-                        if (taskHandle !== undefined) {
-                            return // Already a task registered
-                        }
+                    cm.on('cursorActivity', debounceRender)
+                    cm.on('viewportChange', debounceRender)
+                    cm.on('optionChange', debounceRender)
 
-                        taskHandle = requestIdleCallback(function () {
-                            renderElements(cm)
-                            taskHandle = undefined // Next task can be scheduled now
-                        }, { timeout: 1000 }) // Don't wait more than 1 sec before executing this
-                    }
-
-                    cm.on('cursorActivity', callback)
-                    cm.on('viewportChange', callback) // renderElements)
-                    cm.on('optionChange', callback)
-
+                    // Block Katex Math Render
                     new CMBlockMarkerHelper(cm, null, /^\s*\$\$/, /^\s*\$\$/, (beginMatch, endMatch, content) => {
                         let testDiv = document.createElement('span');
                         console.log(content);
                         katex.render(content, testDiv, { throwOnError: false, displayMode: true, output: 'html' })
                         return testDiv;
-                    }, 'test-marker', true);
+                    }, 'zettlr-block-math-marker', true);
+
+                    new CMInlineMarkerHelper(cm, [/(?<!\$)\$([^\$]+)\$/g], (match, regIndex: number, from, to, innerDomEleCopy, lastMatchFrom, lastMatchTo) => {
+                        const markEl = document.createElement('span');
+                        katex.render(match[1], markEl, { throwOnError: false, displayMode: false, output: 'html' })
+                        return markEl;
+                    }, 'zettlr-inline-math-marker', null);
                 });
 
                 foldCodeHelper(CodeMirror);
@@ -72,19 +67,6 @@ module.exports = {
 }
 
 function renderElements (cm: CodeMirror.Editor): void {
-    // const render = (cm as any).getOption('zettlr').render
-    // cm.execCommand('markdownRenderMermaid')
-    // cm.execCommand('clickableYAMLTags')
-    // if (render.tables === true) cm.execCommand('markdownRenderTables')
-    // if (render.iframes === true) cm.execCommand('markdownRenderIframes')
-    // if (render.links === true) cm.execCommand('markdownRenderLinks')
-    // if (render.images === true) cm.execCommand('markdownRenderImages')
-    // if (render.math === true) cm.execCommand('markdownRenderMath')
-    // if (render.citations === true) cm.execCommand('markdownRenderCitations')
-    // if (render.tasks === true) cm.execCommand('markdownRenderTasks')
-    // if (render.headingTags === true) cm.execCommand('markdownRenderHTags')
-    // if (render.emphasis === true) cm.execCommand('markdownRenderEmphasis')
-    // markdownRenderMath(cm);
     markdownRenderTasks(cm);
     markdownRenderTables(cm);
 }

@@ -142,35 +142,28 @@ export class CMBlockMarkerHelper {
                 );
 
                 wrapper.style.cssText = 'border: 2px solid transparent; padding: 2px; width: 100%; border-radius: 4px;';
+                const editButton = document.createElement('button');
+                editButton.textContent = '/';
+                editButton.hidden = true;
+                editButton.style.cssText = 'position: absolute; top: 8px; right: 8px; width: 20px; height: 20px;';
                 if (this.clearOnClick) {
                     wrapper.onclick = (e) => {
                         clickAndClear(textMarker, this.editor)(e);
                     };
-                    wrapper.onmouseover = (e) => {
-                        wrapper.style.border = '2px solid #19a2f0';
-                    };
-                    wrapper.onmouseleave = (e) => {
-                        wrapper.style.border = '2px solid transparent';
-                    };
-                } else {
-                    const editButton = document.createElement('button');
-                    editButton.textContent = '/';
-                    editButton.hidden = true;
-                    editButton.style.cssText = 'position: absolute; top: 8px; right: 8px; width: 20px; height: 20px;';
-                    editButton.onclick = () => {
-                        textMarker.clear();
-                        doc.setCursor({line: from.line + 1, ch: 0});
-                    }
-                    wrapper.appendChild(editButton);
-                    wrapper.onmouseover = (e) => {
-                        editButton.hidden = false;
-                        wrapper.style.border = '2px solid #19a2f0';
-                    };
-                    wrapper.onmouseleave = (e) => {
-                        editButton.hidden = true;
-                        wrapper.style.border = '2px solid transparent';
-                    };
                 }
+                editButton.onclick = (e) => {
+                    textMarker.clear();
+                    doc.setCursor({line: from.line + 1, ch: 0});
+                }
+                wrapper.appendChild(editButton);
+                wrapper.onmouseover = (e) => {
+                    editButton.hidden = false;
+                    wrapper.style.border = '2px solid #19a2f0';
+                };
+                wrapper.onmouseleave = (e) => {
+                    editButton.hidden = true;
+                    wrapper.style.border = '2px solid transparent';
+                };
             }
         }
     }
