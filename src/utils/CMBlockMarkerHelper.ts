@@ -50,8 +50,9 @@ export class CMBlockMarkerHelper {
         for (let i = viewport.from; i < viewport.to; i++) {
             const line = this.editor.getLine(i);
 
+            console.log(line, this.blockStartTokenRegexp, this.blockStartTokenRegexp.test(line));
             // if we find the start token, then we will try to find the end token
-            if (this.blockStartTokenRegexp.test(line)) {
+            if (!meetBeginToken && this.blockStartTokenRegexp.test(line)) {
                 beginMatch = line.match(this.blockStartTokenRegexp);
                 meetBeginToken = true;
                 prevBeginTokenLineNumber = i;
@@ -119,7 +120,7 @@ export class CMBlockMarkerHelper {
             const cursor = this.editor.getCursor();
             const doc = this.editor.getDoc();
             const blockContentLines = [];
-            for (let i = from.line; i <= to.line; ++i) {
+            for (let i = from.line + 1; i <= to.line - 1; ++i) {
                 blockContentLines.push(this.editor.getLine(i));
             }
 
@@ -140,9 +141,16 @@ export class CMBlockMarkerHelper {
                     },
                 );
 
+                wrapper.style.cssText = 'border: 2px solid transparent; padding: 2px; width: 100%; border-radius: 4px;';
                 if (this.clearOnClick) {
                     wrapper.onclick = (e) => {
                         clickAndClear(textMarker, this.editor)(e);
+                    };
+                    wrapper.onmouseover = (e) => {
+                        wrapper.style.border = '2px solid #19a2f0';
+                    };
+                    wrapper.onmouseleave = (e) => {
+                        wrapper.style.border = '2px solid transparent';
                     };
                 } else {
                     const editButton = document.createElement('button');
@@ -154,10 +162,9 @@ export class CMBlockMarkerHelper {
                         doc.setCursor({line: from.line + 1, ch: 0});
                     }
                     wrapper.appendChild(editButton);
-                    wrapper.style.cssText = 'border: 2px solid transparent; padding: 2px; width: 100%; border-radius: 4px;';
                     wrapper.onmouseover = (e) => {
                         editButton.hidden = false;
-                        wrapper.style.border = '2px solid red';
+                        wrapper.style.border = '2px solid #19a2f0';
                     };
                     wrapper.onmouseleave = (e) => {
                         editButton.hidden = true;

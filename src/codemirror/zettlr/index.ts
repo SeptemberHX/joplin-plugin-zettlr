@@ -5,6 +5,7 @@ import {foldCodeHelper} from "./foldcode-helper";
 import {markdownRenderTables} from "./render-tables";
 import {markdownRenderMath} from "./render-math";
 import {CMBlockMarkerHelper} from "../../utils/CMBlockMarkerHelper";
+import katex from 'katex'
 
 module.exports = {
     default: function(_context) {
@@ -29,11 +30,12 @@ module.exports = {
                     cm.on('viewportChange', callback) // renderElements)
                     cm.on('optionChange', callback)
 
-                    new CMBlockMarkerHelper(cm, null, /:::test/, /:::/, (beginMatch, endMatch, content) => {
-                        let testDiv = document.createElement('div');
-                        testDiv.textContent = '=== Folded Test Code Block ===\n=== Folded Test Code Block ===';
+                    new CMBlockMarkerHelper(cm, null, /^\s*\$\$/, /^\s*\$\$/, (beginMatch, endMatch, content) => {
+                        let testDiv = document.createElement('span');
+                        console.log(content);
+                        katex.render(content, testDiv, { throwOnError: false, displayMode: true, output: 'html' })
                         return testDiv;
-                    }, 'test-marker', false);
+                    }, 'test-marker', true);
                 });
 
                 foldCodeHelper(CodeMirror);
@@ -82,7 +84,7 @@ function renderElements (cm: CodeMirror.Editor): void {
     // if (render.tasks === true) cm.execCommand('markdownRenderTasks')
     // if (render.headingTags === true) cm.execCommand('markdownRenderHTags')
     // if (render.emphasis === true) cm.execCommand('markdownRenderEmphasis')
-    markdownRenderMath(cm);
+    // markdownRenderMath(cm);
     markdownRenderTasks(cm);
     markdownRenderTables(cm);
 }
