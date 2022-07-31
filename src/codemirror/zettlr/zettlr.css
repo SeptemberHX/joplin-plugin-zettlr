@@ -1,48 +1,48 @@
-.CodeMirror-gutter-wrapper {
-    left: -12px !important;
-}
+/*.CodeMirror-gutter-wrapper {*/
+/*    left: -12px !important;*/
+/*}*/
 
-.CodeMirror-gutters {
-    background-color: transparent !important;
-    border: none !important;
-}
+/*.CodeMirror-gutters {*/
+/*    background-color: transparent !important;*/
+/*    border: none !important;*/
+/*}*/
 
-.CodeMirror-foldgutter {
-    width: 10px;
-}
+/*.CodeMirror-foldgutter {*/
+/*    width: 10px;*/
+/*}*/
 
-.CodeMirror-linenumbers {
-    width: 40px;
-    border-right: 1px solid rgba(0, 0, 0, 0.25);
-}
+/*.CodeMirror-linenumbers {*/
+/*    width: 40px;*/
+/*    border-right: 1px solid rgba(0, 0, 0, 0.25);*/
+/*}*/
 
-.CodeMirror-foldgutter-open, .CodeMirror-foldgutter-folded {
-    text-align: right;
-    cursor: pointer;
-    font-size: 18px;
-}
+/*.CodeMirror-foldgutter-open, .CodeMirror-foldgutter-folded {*/
+/*    text-align: right;*/
+/*    cursor: pointer;*/
+/*    font-size: 18px;*/
+/*}*/
 
-.CodeMirror-foldgutter-open:after {
-    content: "\25BE";
-}
+/*.CodeMirror-foldgutter-open:after {*/
+/*    content: "\25BE";*/
+/*}*/
 
-.CodeMirror-foldgutter-folded:after {
-    content: "\25B8";
-}
+/*.CodeMirror-foldgutter-folded:after {*/
+/*    content: "\25B8";*/
+/*}*/
 
-.CodeMirror-foldmarker {
-    border-radius: 3px;
-    font-size: 85%;
-    margin-left: 10px;
-    padding: 2px 0px 2px 0px;
-    cursor: pointer;
-    vertical-align: baseline;
-    background-color: #f4f5f5;
-}
+/*.CodeMirror-foldmarker {*/
+/*    border-radius: 3px;*/
+/*    font-size: 85%;*/
+/*    margin-left: 10px;*/
+/*    padding: 2px 0px 2px 0px;*/
+/*    cursor: pointer;*/
+/*    vertical-align: baseline;*/
+/*    background-color: #f4f5f5;*/
+/*}*/
 
-.CodeMirror-foldmarker:hover {
-    background-color: #E6E6E6;
-}
+/*.CodeMirror-foldmarker:hover {*/
+/*    background-color: #E6E6E6;*/
+/*}*/
 
 .table-helper {
     border: 1px solid #e6e6e6;

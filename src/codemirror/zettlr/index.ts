@@ -24,7 +24,7 @@ module.exports = {
                         console.log(content);
                         katex.render(content, testDiv, { throwOnError: false, displayMode: true, output: 'html' })
                         return testDiv;
-                    }, 'zettlr-block-math-marker', true);
+                    }, 'zettlr-block-math-marker', true, );
 
                     new CMInlineMarkerHelper(cm, [/(?<!\$)\$([^\$]+)\$/g], (match, regIndex: number, from, to, innerDomEleCopy, lastMatchFrom, lastMatchTo) => {
                         const markEl = document.createElement('span');
@@ -32,25 +32,11 @@ module.exports = {
                         return markEl;
                     }, 'zettlr-inline-math-marker', null);
                 });
-
-                foldCodeHelper(CodeMirror);
             },
             codeMirrorOptions: {
                 'zettlrPlugins': true,
-                foldGutter: true,
-                gutters: ["CodeMirror-foldgutter"],
-                foldOptions: {
-                    'widget': '\u00A0\u2026\u00A0', // nbsp ellipse nbsp
-                    'scanUp': false // Do not search upwards if current line cannot be folded
-                },
             },
             codeMirrorResources: [
-                'addon/fold/foldcode',
-                'addon/fold/foldgutter',
-                'addon/fold/brace-fold',
-                'addon/fold/indent-fold',
-                'addon/fold/markdown-fold',
-                'addon/fold/comment-fold'
             ],
             assets: function() {
                 return [
