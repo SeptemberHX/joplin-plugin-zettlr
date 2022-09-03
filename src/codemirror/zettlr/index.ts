@@ -17,20 +17,6 @@ module.exports = {
                     cm.on('cursorActivity', debounceRender)
                     cm.on('viewportChange', debounceRender)
                     cm.on('optionChange', debounceRender)
-
-                    // Block Katex Math Render
-                    new CMBlockMarkerHelper(cm, null, /^\s*\$\$/, /^\s*\$\$/, (beginMatch, endMatch, content) => {
-                        let testDiv = document.createElement('span');
-                        console.log(content);
-                        katex.render(content, testDiv, { throwOnError: false, displayMode: true, output: 'html' })
-                        return testDiv;
-                    }, 'zettlr-block-math-marker', true, );
-
-                    new CMInlineMarkerHelper(cm, [/(?<!\$)\$([^\$]+)\$/g], (match, regIndex: number, from, to, innerDomEleCopy, lastMatchFrom, lastMatchTo) => {
-                        const markEl = document.createElement('span');
-                        katex.render(match[1], markEl, { throwOnError: false, displayMode: false, output: 'html' })
-                        return markEl;
-                    }, 'zettlr-inline-math-marker', null);
                 });
             },
             codeMirrorOptions: {
@@ -53,6 +39,5 @@ module.exports = {
 }
 
 function renderElements (cm: CodeMirror.Editor): void {
-    markdownRenderTasks(cm);
     markdownRenderTables(cm);
 }
